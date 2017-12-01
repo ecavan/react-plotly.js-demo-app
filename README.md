@@ -1,4 +1,4 @@
-Demo app for the [react-plotly.js](https://github.com/plotly/react-plotly.js) component.
+Demo for the [react-plotly.js](https://github.com/plotly/react-plotly.js) component.
 
 👉 [Link to demo](http://react-plotly.js-demo.getforge.io/)
 
