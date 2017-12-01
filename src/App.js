@@ -1,11 +1,13 @@
+/* global Plotly:true */
+
 import React, { Component } from 'react';
 
-import createPlotlyComponent from 'react-plotlyjs';
 import fetch from 'isomorphic-fetch';
-import Plotly from 'plotly.js/dist/plotly.js';
 import ReactJSONEditor from './components/ReactJSONEditor.react.js';
 import Select from 'react-select';
 import SplitPane from 'react-split-pane';
+
+import createPlotlyComponent from 'react-plotly.js/factory'
 
 import './App.css';
 import './styles/Resizer.css';
@@ -19,6 +21,8 @@ import './styles/reset.css';
 import './styles/searchbox.css';
 
 import 'react-select/dist/react-select.css';
+
+const Plot = createPlotlyComponent(Plotly);
 
 class App extends Component {
 
@@ -51,7 +55,6 @@ class App extends Component {
 
         this.state = {
             json: plotJSON,
-            filterByPlotType: {label: 'Charts', value: ''},
             plotUrl: ''
         };
     }
@@ -95,21 +98,12 @@ class App extends Component {
     }
     
     getPlots = (input) => {
-        if (!input && !this.state.filterByPlotType.value) {
+        if (!input) {
 			return Promise.resolve({ options: [] });
 		}
 
         let urlToFetch = `https://api.plot.ly/v2/search?q=${input}`;
         
-        if (this.state.filterByPlotType) {
-            if (this.state.filterByPlotType.value && input) {
-                urlToFetch = `https://api.plot.ly/v2/search?q=${input} plottype:${this.state.filterByPlotType.value}`;
-            }
-            else if (this.state.filterByPlotType.value) {
-                urlToFetch = `https://api.plot.ly/v2/search?q=plottype:${this.state.filterByPlotType.value}`;
-            }
-        }
-
 		return fetch(urlToFetch)
 		    .then((response) => response.json())
 		    .then((json) => {
@@ -138,40 +132,11 @@ class App extends Component {
 		    });
     };
     
-    handleNewPlotType = option => {
-        this.setState({filterByPlotType: option});
-    }
-    
     render() {
 
-        const PlotlyComponent = createPlotlyComponent(Plotly);    
+        let searchPlaceholder = 'Search charts on plot.ly by topic -- e.g. "GDP"';
 
-        const PLOT_TYPES = [
-            {label: 'Any chart (no filter)', value: ''},
-            {label: 'Bar charts', value: 'bar'},
-            {label: 'Line charts', value: 'line'},
-            {label: '3d surface charts', value: 'surface'},
-            {label: '3d line charts', value: 'line3d'},
-            {label: '3d scatter charts', value: 'scatter3d'},
-            {label: 'Area charts', value: 'areachart'},
-            {label: 'Histograms', value: 'histogram'},
-            {label: 'Box Plots', value: 'box'},
-            {label: 'Choropleth Maps', value: 'choropleth'},
-            {label: 'Geoscatter Maps', value: 'scattergeo'},            
-            {label: 'Mapbox Maps', value: 'scattermapbox'},
-            {label: 'Parallel Coordinate Plots', value: 'parcoords'},
-            {label: 'Contour Maps', value: 'contour'},
-            {label: 'Candlestick Plots', value: 'candlestick'},
-            {label: 'Animations', value: 'animation'}            
-        ];
-
-        let searchPlaceholder = 'Search charts on plot.ly by topic, e.g. "GDP"';
-        if(this.state.filterByPlotType) {
-            searchPlaceholder = `Search ${this.state.filterByPlotType.label.toLowerCase()} \
-on plot.ly by topic, e.g. "GDP"`;
-        }
-
-        const plotInputPlaceholder = 'Copy a URL from plot.ly or Gist of plot JSON here, e.g. https://plot.ly/~MattSundquist/18964.json';
+        const plotInputPlaceholder = 'Link to plot JSON';
 
         let footnoteStyle = {
             fontSize: '12px',
@@ -186,19 +151,12 @@ on plot.ly by topic, e.g. "GDP"`;
                 <SplitPane split="vertical" minSize={100} defaultSize={400}>
                     <div>
                         <div className='controls-panel'>
-                            <Select
-                                name="select plot type"
-                                options={PLOT_TYPES}
-                                placeholder="Filter by Chart Type"
-                                onChange={this.handleNewPlotType}
-                                value={this.state.filterByPlotType}
-                           />
-                           <br/>
                            <Select.Async
                                 name="plotlyjs-mocks"
                                 loadOptions={this.getMocks}
                                 placeholder={'Search plotly.js mocks'}
                                 onChange={this.handleNewPlot}
+                                className={'no-select'}
                            />
                        </div>
                        <ReactJSONEditor
@@ -206,14 +164,6 @@ on plot.ly by topic, e.g. "GDP"`;
                            onChange={this.handleJsonChange}
                            plotUrl={this.state.plotUrl}
                        />                  
-                       <p style={footnoteStyle}>{`Copy link: ${this.state.plotUrl}`}</p>
-                       <a
-                           style={footnoteStyle}
-                           target="_blank"
-                           href="https://plot.ly/javascript/reference"
-                       >                
-                           JSON Key/Value Reference
-                       </a>                
                     </div>                         
                     <div>
                        <div className='controls-panel'>
@@ -224,15 +174,18 @@ on plot.ly by topic, e.g. "GDP"`;
                                 onChange={this.handleNewPlot}
                                 ref="plotSearchBar"
                                 cache={false}
+                                className={'no-select'}            
                             />
                             <br/>
                             <input
                                 placeholder={plotInputPlaceholder}
                                 onBlur={this.handleNewPlot}
-                                style={{padding:'5px', width:'95%'}}
+                                style={{padding:'10px', width:'95%', border:0}}
+                                value={this.state.plotUrl}
+                                className={'no-select'}
                             />
                         </div>
-                        <PlotlyComponent
+                        <Plot
                             data={this.state.json.data}
                             layout={this.state.json.layout}
                             config={{displayModeBar: false}}

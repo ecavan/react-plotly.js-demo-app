@@ -1,6 +1,7 @@
 
 div.jsoneditor {
-
+   height: 700px !important;
+   border: none !important;
 }
 
 div.jsoneditor-field,
@@ -31,7 +32,7 @@ div.jsoneditor-readonly {
 }
 
 div.jsoneditor-empty {
-  border-color: lightgray;
+  border-color: transparent;
   border-style: dashed;
   border-radius: 2px;
 }
@@ -178,7 +179,7 @@ div.jsoneditor-tree button.jsoneditor-invisible {
 
 div.jsoneditor {
   color: #1A1A1A;
-  border: 1px solid #3883fa;
+  border: 0px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -447,3 +448,13 @@ div.jsoneditor-tree .jsoneditor-schema-error {
   background: url('img/jsoneditor-icons.svg')  -168px -48px;
 }
 
+div.jsoneditor-treepath {
+    padding: 10px;
+}
+
+span.jsoneditor-treepath-element {
+    margin: 0 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #506784;
+}

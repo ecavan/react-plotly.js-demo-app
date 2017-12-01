@@ -5,23 +5,29 @@ body {
     color: #506784;
 }
 
+.Pane1 {
+    background-color: #F3F6FA;
+    border-right-color: #DFE8F3 !important;
+}
+
 .controls-panel {
     background: #f3f6fa;
     padding: 10px;
-    border-bottom: 1px solid #c8dfe3;
 }
 
 .Select-control {
-    border-color: #c8dfe3 !important;
+    border-color: #DFE8F3 !important;
 }
 
 .jsoneditor-menu {
-    background-color: #506784 !important;
-    border-color: #c8dfe3 !important;
+    background-color: #F3F6FA !important;
+    border-bottom: none !important;
 }
 
 .jsoneditor {
-    border-color: #c8dfe3 !important;
+    border-color: #DFE8F3 !important;
+    margin-top: 13px;
+    color: #506784;
 }
 
 a {
@@ -29,6 +35,63 @@ a {
     font-weight: normal;
 }
 
-a:hover{
+a:hover {
     color: #0d76bf;
+}
+
+.jsoneditor-expand-all, 
+.jsoneditor-collapse-all {
+    background-color: #00cc96 !important;
+    cursor: pointer;
+}
+
+.jsoneditor-undo, jsoneditor-redo {
+    background-color: #00cc96 !important;
+    cursor: pointer; 
+}
+
+.jsoneditor-treepath-seperator {
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.Resizer {
+    background-color: #DFE8F3 !important;
+    opacity: 1;
+}
+
+.js-plotly-plot {
+    padding: 40px;
+}
+
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none !important;
+}
+
+.jsoneditor-tree::-webkit-scrollbar {
+    width: 3px !important;
+    height: 4px;
+    border-left: 0;
+    background: rgba(0,0,0,0.1);
+}
+
+.jsoneditor-tree::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.4);
+    border-radius: 0;
+    width: 3px;
+}
+
+.jsoneditor-selected, .jsoneditor-highlight {
+    background-color: #EBF0F8 !important;
+    color: #00cc96 !important;
+}
+
+input {
+    color: #506784 !important;
 }

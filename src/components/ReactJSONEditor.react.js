@@ -84,6 +84,7 @@ export default class ReactJSONEditor extends Component {
             theme
         });
         this.editor.set(this.json);
+        this.editor.expandAll();
 
         const newState = this.state;
         newState.editorCreated = true;
@@ -93,7 +94,6 @@ export default class ReactJSONEditor extends Component {
     componentWillReceiveProps(nextProps) {
 
         const json = this.json;
-
         if (!isEqual(json, nextProps.json)) {
             const newState = this.state;
             newState.json = cloneDeep(nextProps.json);
@@ -105,6 +105,7 @@ export default class ReactJSONEditor extends Component {
         if (!isEqual(prevProps.plotUrl, this.props.plotUrl)) {
             // New plot; load new plot JSON
             this.editor.set(this.json);
+            this.editor.expandAll();
         }
     }
 
@@ -194,5 +195,5 @@ ReactJSONEditor.defaultProps = {
 
     search: true,
 
-    indentation: 2
+    indentation: 4
 }
