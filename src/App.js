@@ -36,22 +36,31 @@ class App extends Component {
         const plotJSON = {
             data: [{
                 x: [1,2,3,4],
-                y: [1,3,2,6],
-                type: 'bar',
+                y: [5,5,5,5],
+                type: 'line',
                 marker: {color: '#ab63fa'},
-                name: 'Bar'
+                name: 'Line'
             }, {
                 x: [1,2,3,4],
-                y: [3,2,7,4],
+                y: [5,6,7,8],
                 type: 'line',
+                marker: {color: '#19d3f3'},
+                name: 'Line'
+            }, 
+            {
+                x: [1,2,3,4],
+                y: [5,6,7,8],
+                type: 'bar',
                 marker: {color: '#19d3f3'},
                 name: 'Line'
             }],
             layout: {
                 plotBackground: '#f3f6fa',
-                margin: {t:0, r: 0, l: 20, b: 30},
+                margin: {t:10, r: 10, l: 40, b: 50},
             }
         };
+
+        
 
         this.state = {
             json: plotJSON,

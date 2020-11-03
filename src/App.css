@@ -1,19 +1,10 @@
 body {
     font-size: 13px;
     font-family: 'Open-sans', Helvetica, sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     color: #506784;
 }
 
-.Pane1 {
-    background-color: #F3F6FA;
-    border-right-color: #DFE8F3 !important;
-}
-
-.controls-panel {
-    background: #f3f6fa;
-    padding: 10px;
-}
 
 .Select-control {
     border-color: #DFE8F3 !important;
